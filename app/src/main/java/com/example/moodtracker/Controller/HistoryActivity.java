@@ -1,11 +1,9 @@
 package com.example.moodtracker.Controller;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
@@ -33,7 +31,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         buildRecyclerView();
 
-        mMoodArrayList = Prefs.getInstance(this).getMoods(); // ArrayList History
+        mMoodArrayList = Prefs.getInstance(this).getMoodArrayList(); // ArrayList History
 
     }
 
@@ -41,5 +39,6 @@ public class HistoryActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view_history);
         mLayoutManager = new LinearLayoutManager(this);
 
+        mAdapter=new MyAdapter(mMoodArrayList, this);
     }
 }

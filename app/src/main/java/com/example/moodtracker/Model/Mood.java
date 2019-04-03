@@ -1,8 +1,7 @@
 package com.example.moodtracker.Model;
 
-import org.w3c.dom.Comment;
-
 import java.util.Date;
+import java.util.Hashtable;
 
 public class Mood {
 
@@ -45,7 +44,21 @@ public class Mood {
         this.mComment = Comment;
     }
 
-    public void getComment(String Comment){
-        this.mComment = Comment;
+    public String getDays(int days) {
+
+        Hashtable<Integer, String> weekDays = new Hashtable<>();
+        weekDays.put(7, "Il y a une semaine");
+        weekDays.put(6, "Il y a 6 jours");
+        weekDays.put(5, "Il y a 5 jours");
+        weekDays.put(4, "Il y a 4 jours");
+        weekDays.put(3, "Il y a 3 jours");
+        weekDays.put(2, "Avant-hier");
+        weekDays.put(1, "Hier");
+
+        return weekDays.get(days);
+    }
+
+    public String getComment() {
+        return null;
     }
 }

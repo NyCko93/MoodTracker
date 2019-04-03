@@ -16,11 +16,12 @@ public class Prefs {
 
     private static Prefs instance;
     private static String PREFS="PREFS";
-    private static String MOOD="MOOD";
+    private static final String MOOD="MOOD";
     private SharedPreferences prefs;
 
     private Prefs(Context context) {
 
+        String PREFS_MOOD_STORE = "MoodStore";
         prefs=context.getSharedPreferences(PREFS, Activity.MODE_PRIVATE);
 
     }
@@ -34,7 +35,8 @@ public class Prefs {
         return instance;
     }
 
-    public void saveMood(ArrayList<Mood> objects) {
+
+    public void saveMood(ArrayList<Mood> moodArrayList) {
         /**
          * Editing data to back up
          */
@@ -43,7 +45,7 @@ public class Prefs {
          * We store the data
          */
         Gson gson=new Gson();
-        String json=gson.toJson(objects);
+        String json=gson.toJson(moodArrayList);
         editor.putString(MOOD, json);
         /**
          * We close the file and then apply the edition
@@ -54,20 +56,20 @@ public class Prefs {
     /**
      * Here we recover the saved data. If null, create a new list
      */
-    public ArrayList<Mood> getMoods() {
+    public ArrayList<Mood> getMoodArrayList() {
         Gson gson=new Gson();
         String json=prefs.getString(MOOD, "");
 
-        ArrayList<Mood> objects;
+        ArrayList<Mood> moodArrayList;
 
         if (json.length() < 1) {
-            objects=new ArrayList<>();
+            moodArrayList=new ArrayList<>();
         } else {
             Type type=new TypeToken<ArrayList<Mood>>() {
             }.getType();
-            objects=gson.fromJson(json, type);
+            moodArrayList=gson.fromJson(json, type);
         }
-        return objects;
+        return moodArrayList;
     }
 
 

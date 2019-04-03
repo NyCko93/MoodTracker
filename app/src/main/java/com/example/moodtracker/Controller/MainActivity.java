@@ -12,9 +12,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.moodtracker.Model.Mood;
+import com.example.moodtracker.Model.MoodSaveHelper;
 import com.example.moodtracker.R;
 
 import java.security.AccessController;
@@ -36,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     private ImageView mNoteImage;
     private AccessController view;
     private String mComment;
-
-
+    MoodSaveHelper mMoodSaveHelper;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
         /**
          * Button comment
-          */
+         */
         mNoteImage=(ImageView) findViewById(R.id.btn_note);
 
         mNoteImage.setOnClickListener(new View.OnClickListener() {
@@ -82,22 +83,31 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     }
 
     private void showBoxDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        AlertDialog.Builder alert=new AlertDialog.Builder(this);
 
-        final EditText edittext = new EditText(this);
-        alert.setMessage("Enter Your Message");
-        alert.setTitle("Enter Your Title");
+        final EditText edittext=new EditText(this);
+
+        LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        edittext.setLayoutParams(lp);
+
+        alert.setMessage("Entrer votre commentaire");
+        alert.setTitle("COMMENTAIRE");
 
         alert.setView(edittext);
 
-        alert.setPositiveButton("Yes Option", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                Prefs.getInstance(MainActivity.this);
+                mComment=edittext.getText().toString();
+                moodList.get(counter).setComment(mComment);
+                Mood test=moodList.get(counter);
             }
         });
 
-        alert.setNegativeButton("No Option", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                // what ever you want to do with No option.
             }
         });
 
@@ -135,11 +145,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     private void initMoodsList() {
 
         moodList=new ArrayList<>();
-        moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 0,mComment));
-        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 1,mComment));
-        moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2,mComment));
-        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 3,mComment));
-        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 4,mComment));
+        moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 0, mComment));
+        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 1, mComment));
+        moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2, mComment));
+        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 3, mComment));
+        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 4, mComment));
 
     }
 
@@ -196,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         super.onPause();
         System.out.println("MainActivity::onPause()");
         moodList.get(counter).setDate(new Date());
-        ArrayList<Mood> list = Prefs.getInstance(this).getMoods();
+        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
         list.add(moodList.get(counter));
         Prefs.getInstance(this).saveMood(list);
     }
