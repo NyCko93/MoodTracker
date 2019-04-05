@@ -4,14 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.moodtracker.Model.MoodSaveHelper;
+import com.example.moodtracker.Model.SaveHelper;
 
+//receive an intent from the method alarmMidnight to call SaveMoodHelper
 public class AlarmReceiver extends BroadcastReceiver {
 
-    MoodSaveHelper mMoodSaveHelper;
-    //when AlarmMidnight start, this method call method SaveMoodMidnight
+    SaveHelper mSaveHelper;
+    // au démarrage de AlarmMidnight, cette méthode appelle la méthode SaveMoodMidnight
     @Override
     public void onReceive(Context context, Intent intent) {
-        mMoodSaveHelper.SaveMoodMidnight();
+        mSaveHelper.SaveMoodMidnight();
     }
 }

@@ -17,6 +17,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     private MyAdapter mAdapter;
     ArrayList<Mood> mMoodArrayList;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +28,29 @@ public class HistoryActivity extends AppCompatActivity {
         //recovers saved ArrayList to Prefs class
         mMoodArrayList = Prefs.getInstance(this).getMoodArrayList();
 
-        //To don't display current mood
+        displayComment();
+
+        buildRecyclerView();
+
+    }
+
+    // Method to manage the display of history
+    private void displayComment() {
+        //
         if (mMoodArrayList.size() > 0){mMoodArrayList.remove(mMoodArrayList.size() - 1);}
 
-        //if historical don't exist, toast show "You have no history"
         if (mMoodArrayList.size() < 1){
-            Toast.makeText(this, "Vous n'avez pas encore d'historique", Toast.LENGTH_LONG).show(); }
+            Toast.makeText(this, "Vous n'avez pas d'historique à afficher", Toast.LENGTH_LONG).show(); }
+    }
 
-        //instantiation of recyclerView and use a linearLayoutManager
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_history);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //give the list to adapter to display items on it
+    // Constructor of RecyclerView
+    private void buildRecyclerView() {
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_history);
+        mLayoutManager=new LinearLayoutManager(this);
         mAdapter=new MyAdapter(mMoodArrayList, this);
-        recyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 }

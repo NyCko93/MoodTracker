@@ -12,11 +12,19 @@ public class Mood {
 
     private Date date;
 
-    public Mood(int mSmiley, int mBackground, int Id, String mComment) {
+    /**
+     * Mood constructor
+     * @param mSmiley
+     * @param mBackground
+     * @param Id
+     * @param mComment
+     */
+    public Mood(int mSmiley, int mBackground, int Id, String mComment, Date date) {
         this.mSmiley = mSmiley;
         this.mBackground = mBackground;
         this.mId = Id;
         this.mComment = mComment;
+        this.date = date;
     }
 
 
@@ -25,6 +33,10 @@ public class Mood {
     }
 
     public int getBackground(){
+        return mBackground;
+    }
+
+    public int setBackground(){
         return mBackground;
     }
 
@@ -46,19 +58,19 @@ public class Mood {
 
     public String getDays(int days) {
 
-        Hashtable<Integer, String> weekDays = new Hashtable<>();
-        weekDays.put(7, "Il y a une semaine");
-        weekDays.put(6, "Il y a 6 jours");
-        weekDays.put(5, "Il y a 5 jours");
-        weekDays.put(4, "Il y a 4 jours");
-        weekDays.put(3, "Il y a 3 jours");
-        weekDays.put(2, "Avant-hier");
-        weekDays.put(1, "Hier");
+        Hashtable<Integer, String> sevenDays = new Hashtable<>();
+        sevenDays.put(7, "Il y a une semaine");
+        sevenDays.put(6, "Il y a 6 jours");
+        sevenDays.put(5, "Il y a 5 jours");
+        sevenDays.put(4, "Il y a 4 jours");
+        sevenDays.put(3, "Il y a 3 jours");
+        sevenDays.put(2, "Avant-hier");
+        sevenDays.put(1, "Hier");
 
-        return weekDays.get(days);
+        return sevenDays.get(days);
     }
 
     public String getComment() {
-        return null;
+        return mComment;
     }
 }

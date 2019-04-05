@@ -20,8 +20,6 @@ public class Prefs {
     private SharedPreferences prefs;
 
     private Prefs(Context context) {
-
-        String PREFS_MOOD_STORE = "MoodStore";
         prefs=context.getSharedPreferences(PREFS, Activity.MODE_PRIVATE);
 
     }
