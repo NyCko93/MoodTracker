@@ -9,7 +9,6 @@ public class Mood {
     private int mBackground; // Color of background
     private int mId; // Id
     private String mComment;
-
     private Date date;
 
     /**

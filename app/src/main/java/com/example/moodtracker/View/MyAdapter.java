@@ -1,6 +1,7 @@
 package com.example.moodtracker.View;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +64,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @RequiresApi(api=Build.VERSION_CODES.JELLY_BEAN)
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.textTv.setText(String.format(Locale.getDefault(), "%s: %d", mMoodArrayList.get(position).getDate(), mMoodArrayList.get(position).getBackground()));
+//        holder.textTv.setText(String.format(Locale.getDefault(), "%s: %d", mMoodArrayList.get(position).getDate(), mMoodArrayList.get(position).getBackground()));
+        holder.mainLayout.setLayoutParams(new RelativeLayout.LayoutParams(230 + mMoodArrayList.get(position).getId() * 215,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        int idDrawable = mMoodArrayList.get(position).getBackground();
+        Drawable drawable = mContext.getResources().getDrawable(idDrawable);
+        holder.textTv.setBackground(drawable);
+        holder.buttonComment.setBackground(drawable);
 
         /**
          * Si commentaire, bouton visible, on clique pour afficher le texte

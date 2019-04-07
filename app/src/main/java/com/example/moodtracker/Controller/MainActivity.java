@@ -30,7 +30,7 @@ import static java.lang.System.out;
 
 
 public class MainActivity extends AppCompatActivity implements OnGestureListener, View.OnTouchListener {
-    private static final int DEFAULT_MOOD_POSITION=1;
+    private static final int DEFAULT_MOOD_POSITION=3;
     private ArrayList<Mood> moodList;
     private static int counter;
     private GestureDetector mDetector;
@@ -140,11 +140,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     private void initMoodsList() {
 
         moodList=new ArrayList<>();
-        moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 0, mComment, date));
-        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 1, mComment, date));
+        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 0, mComment, date));
+        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 1, mComment, date));
         moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2, mComment, date));
-        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 3, mComment, date));
-        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 4, mComment, date));
+        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 3, mComment, date));
+        moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 4, mComment, date));
 
     }
 
