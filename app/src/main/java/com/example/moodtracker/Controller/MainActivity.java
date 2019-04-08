@@ -1,6 +1,7 @@
 package com.example.moodtracker.Controller;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,7 +22,6 @@ import com.example.moodtracker.Model.Mood;
 import com.example.moodtracker.Model.SaveHelper;
 import com.example.moodtracker.R;
 
-import java.security.AccessController;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     private ImageView mImageView;
     private ImageView mHistoryImage;
     private ImageView mNoteImage;
-    private AccessController view;
     private String mComment;
     SaveHelper mSaveHelper;
 
@@ -56,24 +55,22 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         date=mSaveHelper.getCurrentDate();
 
 
-        mHistoryImage=(ImageView) findViewById(R.id.btn_history);
+        mHistoryImage=findViewById(R.id.btn_history);
 
         mHistoryImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * L'utilisateur appuie sur le bouton pour accéder à l'historique
-                 */
+
+                // The user presses the button to access the history
                 Intent HistoryActivityIntent=new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(HistoryActivityIntent);
             }
         });
 
 
-        /**
-         * Button comment
-         */
-        mNoteImage=(ImageView) findViewById(R.id.btn_note);
+
+        // Button comment
+        mNoteImage=findViewById(R.id.btn_note);
 
         mNoteImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
     }
 
+    /**
+     * Dialog box to write a comment with the mood of the day
+     */
     private void showBoxDialog() {
         AlertDialog.Builder alert=new AlertDialog.Builder(this);
 
@@ -93,15 +93,15 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
         alert.setView(edittext);
 
+        // For save the comment
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                // for save the comment
             }
         });
 
+        // For cancel without save
         alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                // For cancel without save
             }
         });
 
@@ -124,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     /**
      * Initializing the listener to detect interractions
      */
-
+//Warning:(138, 9) Custom view ``ImageView`` has `setOnTouchListener` called on it but does not override `performClick`
+    @SuppressLint("ClickableViewAccessibility")
     private void initListener() {
 
         mDetector=new GestureDetector(MainActivity.this);
@@ -138,14 +139,12 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
      * Initialization of my arraylist with my moods
      */
     private void initMoodsList() {
-
         moodList=new ArrayList<>();
-        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 0, mComment, date));
-        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 1, mComment, date));
-        moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2, mComment, date));
-        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 3, mComment, date));
         moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 4, mComment, date));
-
+        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 3, mComment, date));
+        moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2, mComment, date));
+        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 1, mComment, date));
+        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 0, mComment, date));
     }
 
     @Override
@@ -202,11 +201,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     protected void onPause() {
         super.onPause();
         System.out.println("MainActivity::onPause()");
-        mSaveHelper.SaveCurrentMood(moodList.get(counter));
-//        moodList.get(counter).setDate(new Date());
-//        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
-//        list.add(moodList.get(counter));
-//        Prefs.getInstance(this).saveMood(list);
+        moodList.get(counter).setDate(new Date());
+        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
+        list.add(moodList.get(counter));
+        Prefs.getInstance(this).saveMood(list);
+//        mSaveHelper.SaveCurrentMood(moodList.get(counter));
     }
 
 
@@ -228,17 +227,17 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
 
-        //in a current date at midnight, this property get an instance to calendar
-        Calendar calendar = Calendar.getInstance();
+        //Here we detect the change of day
+        Calendar calendar=Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.add(Calendar.DATE, 1);
 
-        //call AlarmReceiver class
-        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        //Call AlarmReceiver.class
+        alarmManager=(AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent=new Intent(context, com.example.moodtracker.Controller.AlarmReceiver.class);
+        pendingIntent=PendingIntent.getBroadcast(context, 0, intent, 0);
 
         //RTC-WAKEUP that will wake the device when it turns off.
         if (alarmManager != null) {
@@ -246,10 +245,9 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         }
 
         //Resetting the mood list comment, and assigning the default smiley
-        for(int i = 0; i<moodList.size(); i++)
-        {
+        for (int i=0; i < moodList.size(); i++) {
             moodList.get(i).setComment(null);
         }
-        counter = 1;
+        counter=1;
     }
 }

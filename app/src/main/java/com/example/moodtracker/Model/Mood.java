@@ -1,5 +1,6 @@
 package com.example.moodtracker.Model;
 
+
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -11,19 +12,15 @@ public class Mood {
     private String mComment;
     private Date date;
 
-    /**
-     * Mood constructor
-     * @param mSmiley
-     * @param mBackground
-     * @param Id
-     * @param mComment
-     */
+
+
+    // Mood constructor
     public Mood(int mSmiley, int mBackground, int Id, String mComment, Date date) {
-        this.mSmiley = mSmiley;
-        this.mBackground = mBackground;
-        this.mId = Id;
-        this.mComment = mComment;
-        this.date = date;
+        this.mSmiley=mSmiley;
+        this.mBackground=mBackground;
+        this.mId=Id;
+        this.mComment=mComment;
+        this.date=date;
     }
 
 
@@ -31,11 +28,11 @@ public class Mood {
         return mSmiley;
     }
 
-    public int getBackground(){
+    public int getBackground() {
         return mBackground;
     }
 
-    public int setBackground(){
+    public int setBackground() {
         return mBackground;
     }
 
@@ -43,16 +40,16 @@ public class Mood {
         return mId;
     }
 
-    public Date getDate() {
+    private Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date=date;
     }
 
     public void setComment(String Comment) {
-        this.mComment = Comment;
+        this.mComment=Comment;
     }
 
     public String getDays(int days) {
@@ -68,8 +65,7 @@ public class Mood {
 
         return sevenDays.get(days);
     }
-
-    public String getComment() {
-        return mComment;
+        public String getComment () {
+            return mComment;
+        }
     }
-}
