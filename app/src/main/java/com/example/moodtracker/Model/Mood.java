@@ -40,7 +40,7 @@ public class Mood {
         return mId;
     }
 
-    private Date getDate() {
+    public Date getDate() {
         return date;
     }
 

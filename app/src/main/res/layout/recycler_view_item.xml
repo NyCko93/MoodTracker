@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:background="@color/light_sage"
         android:contentDescription="@string/days"/>
 
