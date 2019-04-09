@@ -201,11 +201,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     protected void onPause() {
         super.onPause();
         System.out.println("MainActivity::onPause()");
-        moodList.get(counter).setDate(new Date());
-        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
-        list.add(moodList.get(counter));
-        Prefs.getInstance(this).saveMood(list);
-//        mSaveHelper.SaveCurrentMood(moodList.get(counter));
+//        moodList.get(counter).setDate(new Date());
+//        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
+//        list.add(moodList.get(counter));
+//        Prefs.getInstance(this).saveMood(list);
+        mSaveHelper.SaveCurrentMood(moodList.get(counter));
     }
 
 
