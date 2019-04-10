@@ -64,17 +64,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
 
-    /**
-     * onBindViewHolder est appelée pour chacune des lignes visibles affichées dans notre RecyclerView.
-     * C'est généralement ici que l'on met à jour leur apparence.
-     * Dans notre cas nous appelons la méthode du ViewHolder que nous avons précédemment créée, afin de mettre à jour son TextView à partir d'un GithubUser.
-     * D'ailleurs, nous avons grâce à la variable position, récupéré l'objet GithubUser correspondant dans notre liste d'objet.
-     */
+    // onBindViewHolder is called for each of the visible lines displayed in our RecyclerView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         // Display layout and resize
         holder.mainLayout.setLayoutParams(new RelativeLayout.LayoutParams((int) (80 * holder.mainLayout.getResources().getDisplayMetrics().density + mMoodArrayList.get(position).getId()
-                * 85 * holder.mainLayout.getResources().getDisplayMetrics().density), ViewGroup.LayoutParams.WRAP_CONTENT));
+                * 83 * holder.mainLayout.getResources().getDisplayMetrics().density), ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // Retrieve the final item in mMoodArrayList
         final Mood item=mMoodArrayList.get(position);
@@ -84,8 +79,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         int idDrawable=mMoodArrayList.get(position).getBackground();
         Drawable drawable=mContext.getResources().getDrawable(idDrawable);
         holder.mainLayout.setBackgroundDrawable(drawable);
-//        holder.buttonComment.setBackgroundDrawable(drawable);
-//        holder.textTv.setBackgroundDrawable(drawable);
 
         // If comment, visible button, click to display the text
         if (mMoodArrayList.get(position).getComment() != null) {

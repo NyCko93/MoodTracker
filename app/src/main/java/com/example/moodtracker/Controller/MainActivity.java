@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         });
 
 
-
         // Button comment
         mNoteImage=findViewById(R.id.btn_note);
 
@@ -83,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
     }
 
-    /**
-     * Dialog box to write a comment with the mood of the day
-     */
+    // Dialog box to write a comment with the mood of the day
     private void showBoxDialog() {
         AlertDialog.Builder alert=new AlertDialog.Builder(this);
 
@@ -99,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Prefs.getInstance(MainActivity.this);
-                mComment = edittext.getText().toString();
+                mComment=edittext.getText().toString();
                 moodList.get(counter).setComment(mComment);
-                Mood comment = moodList.get(counter);
+                Mood comment=moodList.get(counter);
                 mSaveHelper.SaveCurrentMood(moodList.get(counter), MainActivity.this);
             }
         });
