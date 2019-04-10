@@ -48,11 +48,13 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         setContentView(R.layout.activity_main);
 
         counter=DEFAULT_MOOD_POSITION;
-        mSaveHelper=new SaveHelper(this);
+        mSaveHelper=new SaveHelper();
         initVars();
         initListener();
         initMoodsList();
         date=mSaveHelper.getCurrentDate();
+
+        AlarmMidnight(this);
 
 
         mHistoryImage=findViewById(R.id.btn_history);
@@ -96,12 +98,18 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         // For save the comment
         alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                Prefs.getInstance(MainActivity.this);
+                mComment = edittext.getText().toString();
+                moodList.get(counter).setComment(mComment);
+                Mood comment = moodList.get(counter);
+                mSaveHelper.SaveCurrentMood(moodList.get(counter), MainActivity.this);
             }
         });
 
         // For cancel without save
         alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
             }
         });
 
@@ -124,15 +132,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     /**
      * Initializing the listener to detect interractions
      */
-//Warning:(138, 9) Custom view ``ImageView`` has `setOnTouchListener` called on it but does not override `performClick`
     @SuppressLint("ClickableViewAccessibility")
     private void initListener() {
 
         mDetector=new GestureDetector(MainActivity.this);
         mLayout.setOnTouchListener(this);
-        mHistoryImage.setOnTouchListener(this);
-        mNoteImage.setOnTouchListener(this);
-
     }
 
     /**
@@ -205,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 //        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
 //        list.add(moodList.get(counter));
 //        Prefs.getInstance(this).saveMood(list);
-        mSaveHelper.SaveCurrentMood(moodList.get(counter));
+        mSaveHelper.SaveCurrentMood(moodList.get(counter), this);
     }
 
 
@@ -229,10 +233,9 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
         //Here we detect the change of day
         Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 50);
 
         //Call AlarmReceiver.class
         alarmManager=(AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -243,11 +246,5 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         if (alarmManager != null) {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
-
-        //Resetting the mood list comment, and assigning the default smiley
-        for (int i=0; i < moodList.size(); i++) {
-            moodList.get(i).setComment(null);
-        }
-        counter=1;
     }
 }

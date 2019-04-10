@@ -1,9 +1,10 @@
 package com.example.moodtracker.View;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import com.example.moodtracker.Model.Mood;
 import com.example.moodtracker.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -73,8 +73,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         // Display layout and resize
-        holder.mainLayout.setLayoutParams(new RelativeLayout.LayoutParams(230 + mMoodArrayList.get(position).getId() * 215,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+        holder.mainLayout.setLayoutParams(new RelativeLayout.LayoutParams((int) (80 * holder.mainLayout.getResources().getDisplayMetrics().density + mMoodArrayList.get(position).getId()
+                * 85 * holder.mainLayout.getResources().getDisplayMetrics().density), ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // Retrieve the final item in mMoodArrayList
         final Mood item=mMoodArrayList.get(position);
@@ -83,21 +83,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // Management of the background
         int idDrawable=mMoodArrayList.get(position).getBackground();
         Drawable drawable=mContext.getResources().getDrawable(idDrawable);
-        if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-            holder.mainLayout.setBackgroundDrawable(drawable);
-        } else {
-            holder.mainLayout.setBackground(drawable);
-        }
-        if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-            holder.buttonComment.setBackgroundDrawable(drawable);
-        } else {
-            holder.buttonComment.setBackground(drawable);
-        }
-        if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-            holder.textTv.setBackgroundDrawable(drawable);
-        } else {
-            holder.textTv.setBackground(drawable);
-        }
+        holder.mainLayout.setBackgroundDrawable(drawable);
+//        holder.buttonComment.setBackgroundDrawable(drawable);
+//        holder.textTv.setBackgroundDrawable(drawable);
 
         // If comment, visible button, click to display the text
         if (mMoodArrayList.get(position).getComment() != null) {
@@ -119,7 +107,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-
     // MyViewHolder represents a cell in my recyclerview
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -134,7 +121,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             super(itemView);
 
-            mainLayout = itemView.findViewById(R.id.item_mood);
+            mainLayout=itemView.findViewById(R.id.item_mood);
 
             textTv=itemView.findViewById(R.id.text_view);
 

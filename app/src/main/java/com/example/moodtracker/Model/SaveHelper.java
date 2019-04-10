@@ -14,10 +14,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SaveHelper {
-    private Context context;
 
-    public SaveHelper(MainActivity mainActivity) {
-        this.context = context;
+
+    public SaveHelper() {
     }
 
     /**
@@ -26,7 +25,7 @@ public class SaveHelper {
      * si sauvegarde, on ajoute
      * si complet, on remplace l'index 0
      */
-    public void SaveCurrentMood(Mood currentMood) {
+    public void SaveCurrentMood(Mood currentMood, MainActivity context) {
         currentMood.setDate(getCurrentDate());
         Prefs prefs = Prefs.getInstance(context);
         ArrayList<Mood> prefsMoodArrayList = prefs.getMoodArrayList();
@@ -60,7 +59,7 @@ public class SaveHelper {
     /**
      * Sauvegarde de l'humeur du jour à minuit
      */
-    public void SaveMoodMidnight() {
+    public void saveMoodMidnight(Context context) {
 
         Prefs prefs = Prefs.getInstance(context);
         ArrayList<Mood> prefsMoodArrayList = prefs.getMoodArrayList();
@@ -68,11 +67,11 @@ public class SaveHelper {
             prefsMoodArrayList = new ArrayList<>();
         }
         if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size()-1).getDate()) != getCurrentDate()) {
-            Mood defaultMood = new Mood(R.drawable.happy, R.color.light_sage, 1, "", getCurrentDate());
+            Mood defaultMood = new Mood(R.drawable.happy, R.color.light_sage, 3, "", getCurrentDate());
             prefsMoodArrayList.add(defaultMood);
         }
 
-        if (prefsMoodArrayList.size() > 7) {
+        if (prefsMoodArrayList.size() > 8) {
             prefsMoodArrayList.remove(0);
         }
 

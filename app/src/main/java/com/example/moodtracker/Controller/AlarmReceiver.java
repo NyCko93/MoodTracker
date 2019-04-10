@@ -9,10 +9,11 @@ import com.example.moodtracker.Model.SaveHelper;
 //receive an intent from the method alarmMidnight to call SaveHelper
 public class AlarmReceiver extends BroadcastReceiver {
 
-    SaveHelper mSaveHelper;
-    // when AlarmMidnight starts, this method calls the SaveMoodMidnight method
+
+    // when AlarmMidnight starts, this method calls the saveMoodMidnight method
     @Override
     public void onReceive(Context context, Intent intent) {
-        mSaveHelper.SaveMoodMidnight();
+        SaveHelper saveHelper = new SaveHelper();
+        saveHelper.saveMoodMidnight(context);
     }
 }

@@ -12,7 +12,6 @@
         android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:background="@color/light_sage"
         android:contentDescription="@string/days"/>
 
     <ImageButton
@@ -25,7 +24,6 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/light_sage"
         android:contentDescription="@string/comment"
         android:src="@drawable/ic_comment_black_48px" />
 
