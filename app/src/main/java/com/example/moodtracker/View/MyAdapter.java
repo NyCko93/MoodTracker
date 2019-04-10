@@ -1,10 +1,8 @@
 package com.example.moodtracker.View;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,17 +24,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Mood> mMoodArrayList;
     private int sdk=android.os.Build.VERSION.SDK_INT;
 
-    /**
-     * MyAdapter prend en paramètre l'Arraylist mMoodArrayList et un contexte afin de récupérer le contenu à afficher
-     */
+    // MyAdapter takes as parameter the Arraylist mMoodArrayList and context to retrieve the content to display
     public MyAdapter(ArrayList<Mood> moods, Context context) {
         this.mMoodArrayList=moods;
         mContext=context;
     }
 
-    /**
-     * getItemCount permet de retourner la taille de notre liste d'objet, et ainsi indiquer à l'Adapter le nombre de lignes que peut contenir la RecyclerView.
-     */
+    // getItemCount returns the size of our object list, and thus tells the Adapter how many lines the RecyclerView can hold
     @Override
     public int getItemCount() {
         if (mMoodArrayList != null) {
@@ -46,12 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
     }
 
-    /**
-     * onCreateViewHolder nous permet de créer un ViewHolder à partir du layout XML représentant chaque ligne de la RecyclerView. Celle-ci sera appelée pour les premières lignes visibles de la RecyclerView.
-     * Pourquoi pas les autres ? Tout simplement car la RecyclerView possède un système permettant de réutiliser (ou recycler... ;) ) les ViewHolder déjà créés.
-     * Il faut savoir que la création d'une vue sur Android est une action qui demande beaucoup de ressources.
-     * Imaginez donc avoir 1000 lignes à afficher dans votre application : sans ce mécanisme de réutilisation, cette dernière souffrirait de ralentissements assez importants.
-     */
+    // onCreateViewHolder allows us to create a ViewHolder from the XML layout representing each line of the RecyclerView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -103,11 +92,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // MyViewHolder represents a cell in my recyclerview
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        // jour (hier, avant hier...)
+        // day (yesterday, before yesterday...)
         private final TextView textTv;
         // background
         final View mainLayout;
-        // bouton commentaire
+        // button comment
         ImageButton buttonComment;
 
         MyViewHolder(final View itemView) {

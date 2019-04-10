@@ -113,9 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         alert.show();
     }
 
-    /**
-     * Initialization of the variables
-     */
+    // Initialization of the variables
     private void initVars() {
         mLayout=findViewById(R.id.activity_main1);
 
@@ -126,9 +124,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         mNoteImage=findViewById(R.id.btn_note);
     }
 
-    /**
-     * Initializing the listener to detect interractions
-     */
+    // Initializing the listener to detect interractions
     @SuppressLint("ClickableViewAccessibility")
     private void initListener() {
 
@@ -136,9 +132,8 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         mLayout.setOnTouchListener(this);
     }
 
-    /**
-     * Initialization of my arraylist with my moods
-     */
+
+    // Initialization of my arraylist with my moods
     private void initMoodsList() {
         moodList=new ArrayList<>();
         moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 4, mComment, date));
@@ -172,9 +167,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     public void onLongPress(MotionEvent e) {
     }
 
-    /**
-     * This method detects the position of the finger and allows scroller
-     */
+    // This method detects the position of the finger and allows scroller
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         if (e1.getY() - e2.getY() > 30) {
@@ -198,14 +191,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         }
     }
 
+    // Save current mood
     @Override
     protected void onPause() {
         super.onPause();
         System.out.println("MainActivity::onPause()");
-//        moodList.get(counter).setDate(new Date());
-//        ArrayList<Mood> list=Prefs.getInstance(this).getMoodArrayList();
-//        list.add(moodList.get(counter));
-//        Prefs.getInstance(this).saveMood(list);
         mSaveHelper.SaveCurrentMood(moodList.get(counter), this);
     }
 

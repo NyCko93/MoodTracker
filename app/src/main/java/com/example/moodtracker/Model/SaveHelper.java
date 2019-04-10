@@ -19,12 +19,7 @@ public class SaveHelper {
     public SaveHelper() {
     }
 
-    /**
-     * Sauvegarde de l'humeur actuelle
-     * si pas de sauvegarde, on crée un arraylist
-     * si sauvegarde, on ajoute
-     * si complet, on remplace l'index 0
-     */
+    // Save the current mood, if no backup, we create an arraylist, if backup, we add and if complete, we replace the index 0
     public void SaveCurrentMood(Mood currentMood, MainActivity context) {
         currentMood.setDate(getCurrentDate());
         Prefs prefs = Prefs.getInstance(context);
@@ -45,9 +40,7 @@ public class SaveHelper {
         prefs.saveMood(prefsMoodArrayList);
     }
 
-    /**
-     * Récupérer la date actuelle
-     */
+    // Retrieve the current date
     public Date getCurrentDate() {
         Date date;
         DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -56,9 +49,7 @@ public class SaveHelper {
         return date;
     }
 
-    /**
-     * Sauvegarde de l'humeur du jour à minuit
-     */
+    // save current mood day, if 0 > new, if no mood selected > default mood, if >8 > remove index 0
     public void saveMoodMidnight(Context context) {
 
         Prefs prefs = Prefs.getInstance(context);

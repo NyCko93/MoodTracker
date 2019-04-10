@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">MoodTracker by NyCko</string>
+    <string name="app_name">MoodTracker</string>
     <string name="days">days</string>
     <string name="comment">comment</string>
 </resources>

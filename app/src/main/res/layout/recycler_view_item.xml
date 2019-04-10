@@ -12,7 +12,7 @@
         android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="86dp"
-        android:contentDescription="@string/days"/>
+        android:contentDescription="@string/days" />
 
     <ImageButton
         android:id="@+id/btn_comment_item"
@@ -21,13 +21,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginRight="10dp"
-        android:contentDescription="@string/comment"
-        android:src="@drawable/ic_comment_black_48px"
         android:background="@android:color/transparent"
-        />
+        android:contentDescription="@string/comment"
+        android:src="@drawable/ic_comment_black_48px" />
 
 
 </RelativeLayout>
