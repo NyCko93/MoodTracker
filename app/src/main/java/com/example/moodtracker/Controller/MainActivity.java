@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     SaveHelper mSaveHelper;
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -55,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         date=mSaveHelper.getCurrentDate();
 
         AlarmMidnight(this);
-
-
+        
         mHistoryImage=findViewById(R.id.btn_history);
 
         mHistoryImage.setOnClickListener(new View.OnClickListener() {
@@ -167,17 +168,21 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     public void onLongPress(MotionEvent e) {
     }
 
-    // This method detects the position of the finger and allows scroller
+    // This method detects the position of the finger and allows scroller and play sound
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        final MediaPlayer mMediaPlayerUp = MediaPlayer.create(this, R.raw.pop);
+        final MediaPlayer mMediaPlayerDown = MediaPlayer.create(this, R.raw.boing);
         if (e1.getY() - e2.getY() > 30) {
             if (counter > 0) {
                 counter--;
+                mMediaPlayerUp.start();
             }
         }
         if (e2.getY() - e1.getY() > 30) {
             if (counter < moodList.size() - 1) {
                 counter++;
+                mMediaPlayerDown.start();
             }
         }
         updateView();
