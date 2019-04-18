@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.example.moodtracker.R.raw.si;
+import static com.example.moodtracker.R.raw.sol;
 import static java.lang.System.out;
 
 
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     private ImageView mNoteImage;
     private String mComment;
     SaveHelper mSaveHelper;
+    MediaPlayer mMediaPlayerUp;
+    MediaPlayer mMediaPlayerDown;
 
 
 
@@ -57,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         date=mSaveHelper.getCurrentDate();
 
         AlarmMidnight(this);
+
+        mMediaPlayerUp = MediaPlayer.create(this, sol);
+        mMediaPlayerDown = MediaPlayer.create(this, si);
         
         mHistoryImage=findViewById(R.id.btn_history);
 
@@ -171,21 +178,21 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     // This method detects the position of the finger and allows scroller and play sound
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        final MediaPlayer mMediaPlayerUp = MediaPlayer.create(this, R.raw.pop);
-        final MediaPlayer mMediaPlayerDown = MediaPlayer.create(this, R.raw.boing);
+
         if (e1.getY() - e2.getY() > 30) {
             if (counter > 0) {
                 counter--;
+                updateView();
                 mMediaPlayerUp.start();
             }
         }
         if (e2.getY() - e1.getY() > 30) {
             if (counter < moodList.size() - 1) {
                 counter++;
+                updateView();
                 mMediaPlayerDown.start();
             }
         }
-        updateView();
         return true;
     }
 
@@ -223,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
 
-        //Here we detect the change of day
+        //Hour of save
         Calendar calendar=Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);

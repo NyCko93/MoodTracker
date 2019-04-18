@@ -15,19 +15,18 @@ import java.util.Locale;
 
 public class SaveHelper {
 
-
     public SaveHelper() {
     }
 
     // Save the current mood, if no backup, we create an arraylist, if backup, we add and if complete, we replace the index 0
     public void SaveCurrentMood(Mood currentMood, MainActivity context) {
         currentMood.setDate(getCurrentDate());
-        Prefs prefs = Prefs.getInstance(context);
-        ArrayList<Mood> prefsMoodArrayList = prefs.getMoodArrayList();
-        if(prefsMoodArrayList == null){
-            prefsMoodArrayList = new ArrayList<>();
+        Prefs prefs=Prefs.getInstance(context);
+        ArrayList<Mood> prefsMoodArrayList=prefs.getMoodArrayList();
+        if (prefsMoodArrayList == null) {
+            prefsMoodArrayList=new ArrayList<>();
         }
-        if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size()-1).getDate()).equals(getCurrentDate())) {
+        if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size() - 1).getDate()).equals(getCurrentDate())) {
             prefsMoodArrayList.remove(prefsMoodArrayList.size() - 1);
         }
         prefsMoodArrayList.add(currentMood);
@@ -43,22 +42,22 @@ public class SaveHelper {
     // Retrieve the current date
     public Date getCurrentDate() {
         Date date;
-        DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-        date = Calendar.getInstance().getTime();
-        date = new Date(outputFormatter.format(date));
+        DateFormat outputFormatter=new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        date=Calendar.getInstance().getTime();
+        date=new Date(outputFormatter.format(date));
         return date;
     }
 
     // save current mood day, if 0 > new, if no mood selected > default mood, if >8 > remove index 0
     public void saveMoodMidnight(Context context) {
 
-        Prefs prefs = Prefs.getInstance(context);
-        ArrayList<Mood> prefsMoodArrayList = prefs.getMoodArrayList();
-        if(prefsMoodArrayList == null){
-            prefsMoodArrayList = new ArrayList<>();
+        Prefs prefs=Prefs.getInstance(context);
+        ArrayList<Mood> prefsMoodArrayList=prefs.getMoodArrayList();
+        if (prefsMoodArrayList == null) {
+            prefsMoodArrayList=new ArrayList<>();
         }
-        if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size()-1).getDate()) != getCurrentDate()) {
-            Mood defaultMood = new Mood(R.drawable.happy, R.color.light_sage, 3, "", getCurrentDate());
+        if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size() - 1).getDate()) != getCurrentDate()) {
+            Mood defaultMood=new Mood(R.drawable.happy, R.color.light_sage, 3, null, getCurrentDate());
             prefsMoodArrayList.add(defaultMood);
         }
 
@@ -67,5 +66,6 @@ public class SaveHelper {
         }
 
         prefs.saveMood(prefsMoodArrayList);
+
     }
 }

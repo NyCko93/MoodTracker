@@ -63,7 +63,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // Retrieve the final item in mMoodArrayList
         final Mood item=mMoodArrayList.get(position);
 
-
         // Management of the background
         int idDrawable=mMoodArrayList.get(position).getBackground();
         Drawable drawable=mContext.getResources().getDrawable(idDrawable);

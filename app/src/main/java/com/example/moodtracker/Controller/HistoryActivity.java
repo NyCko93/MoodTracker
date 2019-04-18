@@ -35,7 +35,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     // Method to manage the display of history
     private void displayComment() {
-        //
         if (mMoodArrayList.size() > 0) {
             mMoodArrayList.remove(mMoodArrayList.size() - 1);
         }
