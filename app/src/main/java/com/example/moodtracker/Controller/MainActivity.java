@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
                 Prefs.getInstance(MainActivity.this);
                 mComment=edittext.getText().toString();
                 moodList.get(counter).setComment(mComment);
-                Mood comment=moodList.get(counter);
                 mSaveHelper.SaveCurrentMood(moodList.get(counter), MainActivity.this);
             }
         });

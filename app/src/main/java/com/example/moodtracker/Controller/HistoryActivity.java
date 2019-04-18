@@ -14,10 +14,7 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private MyAdapter mAdapter;
     ArrayList<Mood> mMoodArrayList;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +36,18 @@ public class HistoryActivity extends AppCompatActivity {
             mMoodArrayList.remove(mMoodArrayList.size() - 1);
         }
 
-        if (mMoodArrayList.size() < 1) {
+        if (mMoodArrayList.size() < 1)
             Toast.makeText(this, "Vous n'avez pas d'historique à afficher", Toast.LENGTH_LONG).show();
-        }
     }
 
     // Constructor of RecyclerView
     private void buildRecyclerView() {
         RecyclerView mRecyclerView=findViewById(R.id.recycler_view_history);
-        mLayoutManager=new LinearLayoutManager(this);
-        mAdapter=new MyAdapter(mMoodArrayList, this);
+        new LinearLayoutManager(this);
+        MyAdapter adapter=new MyAdapter(mMoodArrayList, this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
 
     }
 }

@@ -15,12 +15,12 @@ public class Prefs {
 
 
     private static Prefs instance;
-    private static String PREFS="saveMood";
     private static final String MOOD="MOOD";
     private SharedPreferences prefs;
 
     private Prefs(Context context) {
 
+        String PREFS="saveMood";
         prefs=context.getSharedPreferences(PREFS, Activity.MODE_PRIVATE);
 
     }

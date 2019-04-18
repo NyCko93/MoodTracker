@@ -40,11 +40,11 @@ public class Mood {
         return mId;
     }
 
-    public Date getDate() {
+    Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    void setDate(Date date) {
         this.date=date;
     }
 

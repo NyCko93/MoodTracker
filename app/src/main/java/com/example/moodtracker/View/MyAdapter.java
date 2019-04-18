@@ -22,7 +22,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private final Context mContext;
     private ArrayList<Mood> mMoodArrayList;
-    private int sdk=android.os.Build.VERSION.SDK_INT;
 
     // MyAdapter takes as parameter the Arraylist mMoodArrayList and context to retrieve the content to display
     public MyAdapter(ArrayList<Mood> moods, Context context) {
