@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         initMoodsList();
         date=mSaveHelper.getCurrentDate();
 
-        AlarmMidnight(this);
+        initAlarmManager(this);
 
         mMediaPlayerUp = MediaPlayer.create(this, sol);
         mMediaPlayerDown = MediaPlayer.create(this, si);
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
                 Prefs.getInstance(MainActivity.this);
                 mComment=edittext.getText().toString();
                 moodList.get(counter).setComment(mComment);
-                mSaveHelper.SaveCurrentMood(moodList.get(counter), MainActivity.this);
+                mSaveHelper.saveCurrentMood(moodList.get(counter), MainActivity.this);
             }
         });
 
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     protected void onPause() {
         super.onPause();
         System.out.println("MainActivity::onPause()");
-        mSaveHelper.SaveCurrentMood(moodList.get(counter), this);
+        mSaveHelper.saveCurrentMood(moodList.get(counter), this);
     }
 
 
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         out.println("MainActivity::onDestroy()");
     }
 
-    private void AlarmMidnight(Context context) {
+    private void initAlarmManager(Context context) {
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
 

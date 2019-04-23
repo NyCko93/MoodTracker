@@ -19,7 +19,7 @@ public class SaveHelper {
     }
 
     // Save the current mood, if no backup, we create an arraylist, if backup, we add and if complete, we replace the index 0
-    public void SaveCurrentMood(Mood currentMood, MainActivity context) {
+    public void saveCurrentMood(Mood currentMood, MainActivity context) {
         currentMood.setDate(getCurrentDate());
         Prefs prefs=Prefs.getInstance(context);
         ArrayList<Mood> prefsMoodArrayList=prefs.getMoodArrayList();
