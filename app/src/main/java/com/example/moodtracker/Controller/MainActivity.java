@@ -33,7 +33,7 @@ import static java.lang.System.out;
 
 
 public class MainActivity extends AppCompatActivity implements OnGestureListener, View.OnTouchListener {
-    private static final int DEFAULT_MOOD_POSITION=3;
+    private static final int DEFAULT_MOOD_POSITION=1;
     private ArrayList<Mood> moodList;
     private static int counter;
     private GestureDetector mDetector;
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     SaveHelper mSaveHelper;
     MediaPlayer mMediaPlayerUp;
     MediaPlayer mMediaPlayerDown;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
         initAlarmManager(this);
 
-        mMediaPlayerUp = MediaPlayer.create(this, sol);
-        mMediaPlayerDown = MediaPlayer.create(this, si);
-        
+        mMediaPlayerUp=MediaPlayer.create(this, sol);
+        mMediaPlayerDown=MediaPlayer.create(this, si);
+
         mHistoryImage=findViewById(R.id.btn_history);
 
         mHistoryImage.setOnClickListener(new View.OnClickListener() {
