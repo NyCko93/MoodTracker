@@ -56,7 +56,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         // Display layout and resize
-        holder.mainLayout.setLayoutParams(new RelativeLayout.LayoutParams((int) (80 * holder.mainLayout.getResources().getDisplayMetrics().density + mMoodArrayList.get(position).getId()
+        holder.mainLayout.setLayoutParams(new RelativeLayout.LayoutParams((int) (80 * holder.mainLayout.getResources().getDisplayMetrics().density + (4 - mMoodArrayList.get(position).getId())
                 * 83 * holder.mainLayout.getResources().getDisplayMetrics().density), ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // Retrieve the final item in mMoodArrayList

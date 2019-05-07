@@ -32,15 +32,11 @@ public class Mood {
         return mBackground;
     }
 
-    public int setBackground() {
-        return mBackground;
-    }
-
     public int getId() {
         return mId;
     }
 
-    Date getDate() {
+    public Date getDate() {
         return date;
     }
 

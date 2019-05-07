@@ -3,4 +3,8 @@
     <string name="app_name">MoodTracker</string>
     <string name="days">days</string>
     <string name="comment">comment</string>
+    <string name="enter_your_message">Entrer votre message</string>
+    <string name="commentary">Commentaire</string>
+    <string name="validate">Valider</string>
+    <string name="cancel">Annuler</string>
 </resources>

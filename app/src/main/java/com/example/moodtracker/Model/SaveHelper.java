@@ -57,7 +57,7 @@ public class SaveHelper {
             prefsMoodArrayList=new ArrayList<>();
         }
         if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size() - 1).getDate()) != getCurrentDate()) {
-            Mood defaultMood=new Mood(R.drawable.happy, R.color.light_sage, 3, null, getCurrentDate());
+            Mood defaultMood=new Mood(R.drawable.happy, R.color.light_sage, 1, null, getCurrentDate());
             prefsMoodArrayList.add(defaultMood);
         }
 

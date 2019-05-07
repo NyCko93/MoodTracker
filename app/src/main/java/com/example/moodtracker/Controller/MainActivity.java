@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         initMoodsList();
         date=mSaveHelper.getCurrentDate();
 
+        setTodayData();
+
         initAlarmManager(this);
 
         mMediaPlayerUp=MediaPlayer.create(this, sol);
@@ -89,18 +91,37 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
 
     }
 
+    private void setTodayData() {
+        ArrayList<Mood> prefsMoodArrayList = Prefs.getInstance(this).getMoodArrayList();
+        if (prefsMoodArrayList.size() > 0 && (prefsMoodArrayList.get(prefsMoodArrayList.size() - 1).getDate()).equals(date)) {
+            Mood todayMood = prefsMoodArrayList.get(prefsMoodArrayList.size() - 1);
+            for (int i = 0; i<moodList.size(); i++){
+                if (moodList.get(i).getId() == todayMood.getId()){
+                    moodList.get(i).setComment(todayMood.getComment());
+                    counter = moodList.get(i).getId();
+                    updateView();
+                    return;
+                }
+            }
+        }
+    }
+
+
     // Dialog box to write a comment with the mood of the day
     private void showBoxDialog() {
         AlertDialog.Builder alert=new AlertDialog.Builder(this);
 
         final EditText edittext=new EditText(this);
-        alert.setMessage("Entrer votre message");
-        alert.setTitle("Commentaire");
+        if (moodList.get(counter).getComment() != null){
+            edittext.setText(moodList.get(counter).getComment());
+        }
+        alert.setMessage(getString(R.string.enter_your_message));
+        alert.setTitle(getString(R.string.commentary));
 
         alert.setView(edittext);
 
         // For save the comment
-        alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(getString(R.string.validate), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Prefs.getInstance(MainActivity.this);
                 mComment=edittext.getText().toString();
@@ -110,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
         });
 
         // For cancel without save
-        alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.cancel();
             }
@@ -142,11 +163,11 @@ public class MainActivity extends AppCompatActivity implements OnGestureListener
     // Initialization of my arraylist with my moods
     private void initMoodsList() {
         moodList=new ArrayList<>();
-        moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 4, mComment, date));
-        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 3, mComment, date));
-        moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2, mComment, date));
-        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 1, mComment, date));
-        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 0, mComment, date));
+        moodList.add(new Mood(R.drawable.super_happy, R.color.banana_yellow, 0, null, date));
+        moodList.add(new Mood(R.drawable.happy, R.color.light_sage, 1, null, date));
+        moodList.add(new Mood(R.drawable.normal, R.color.cornflower_blue_65, 2, null, date));
+        moodList.add(new Mood(R.drawable.disappointed, R.color.warm_grey, 3, null, date));
+        moodList.add(new Mood(R.drawable.sad, R.color.faded_red, 4, null, date));
     }
 
     @Override
